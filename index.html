@@ -512,21 +512,21 @@ pre {
                 <b>Neural Interaction Inference with Potentials</b>
                 </p>
                 <p>
-                We present Neural Interaction Inference with Potentials (NIIP), our  unsupervised approach to decompose a trajectory  $ \vx(1...T)_i  $, consisting of  $ N  $ separate nodes at each timestep,  into a set of separate EBM  $ E_\theta^j(\vx)  $ potentials.  NIIP is composed by two steps: <b>(i)</b> an encoder for obtaining a set of potentials and <b>(ii)</b> a sampling process which optimizes for a predicted trajectory, minimizing the inferred potentials. Energy functions in NIIP are trained using autoencoding.
+                We present Neural Interaction Inference with Potentials (NIIP), our  unsupervised approach to decompose a trajectory  $ \mathbf{x}(1...T)_i  $, consisting of  $ N  $ separate nodes at each timestep,  into a set of separate EBM  $ E_\theta^j(\mathbf{x})  $ potentials.  NIIP is composed by two steps: <b>(i)</b> an encoder for obtaining a set of potentials and <b>(ii)</b> a sampling process which optimizes for a predicted trajectory, minimizing the inferred potentials. Energy functions in NIIP are trained using autoencoding.
                 </p>
                 <p>
                 <b>Relational Potentials.</b>
-                To effectively parameterize different potentials for separate interactions, we learn a latent conditioned energy function  $ E_\theta(\vx, \vz) : \real^{T \times D} \times \real^{D_z} \xrightarrow{} \real  $. Then, inferring a set of different potentials corresponds to inferring a latent  $ \vz \in \mathbb{R}^{D_z}  $ that conditions an energy function.
-                Given a trajectory  $ \vx(1...T)_i  $, we infer a set of  $ L  $ different latent vectors for each each directed pair of interacting nodes in a trajectory. Thus, given a set of  $ N  $ different nodes, this corresponds to a set of  $ N(N-1)L  $ energy functions.
+                To effectively parameterize different potentials for separate interactions, we learn a latent conditioned energy function  $ E_\theta(\mathbf{x}, \mathbf{z) : \mathbb{R}^{T \times D} \times \mathbb{R}^{D_z} \xrightarrow{} \mathbb{R}  $. Then, inferring a set of different potentials corresponds to inferring a latent  $ \mathbf{z \in \mathbb{R}^{D_z}  $ that conditions an energy function.
+                Given a trajectory  $ \mathbf{x}(1...T)_i  $, we infer a set of  $ L  $ different latent vectors for each each directed pair of interacting nodes in a trajectory. Thus, given a set of  $ N  $ different nodes, this corresponds to a set of  $ N(N-1)L  $ energy functions.
                 </p>
                 <p>
                 To generate a trajectory, we optimize the energy function  $ E(\mathbf{x}) = \sum_{ij,l} E_\theta^{ij,l}(\mathbf{x};\mathbf{z}_{ij,l})  $, across node indices  $ i  $ and  $ j  $ from  $ 1  $ to  $ N  $ and latent vectors  $ l  $ from  $ 1  $ to  $L  $. However, assigning one energy function to each latent code becomes prohibitively expensive as the number of nodes in a trajectory increases. Thus, to reduce this computational burden, we parameterize  $L  $ energy functions as shared message passing graph networks, grouping all edge contributions  $ ij  $ in a single network. The energy is then computed as a summation over all individual node energies after message passing.
                 To evaluate the energy corresponding to a single edge factor  $ \mathbf{z}_{ij,l}  $ we mask out the contributions of all other edges to the final node energies.
-                To condition to message passing shared graph network on each inferred latent  $ \vz_{ij,l}  $, each edge  $ e(i,j)  $ in the graph is conditioned by the corresponding encoded edge latent code  $ \mathbf{z}_{ij,l}  $, by means of FiLM modulation.
+                To condition to message passing shared graph network on each inferred latent  $ \mathbf{z}_{ij,l}  $, each edge  $ e(i,j)  $ in the graph is conditioned by the corresponding encoded edge latent code  $ \mathbf{z}_{ij,l}  $, by means of FiLM modulation.
                 </p>
                 <p>
                 <b>Inferring Energy Potentials.</b>
-                We utilize  $ \text{Enc}_{\theta}(\mathbf{x}): \real^{T \times D} \xrightarrow{} \real^{D_z}   $ to encode the observed trajectories  $ \mathbf{x}  $ into  $ L  $ latent representations per edge in the observation. We utilize a fully connected GNN with message-passing to infer latents using the encoder module in \cite{Kipf2018NeuralRI}. Instead of classifying edge types and using them as a gate ouputs,  we utilize a continuous latent code  $ \mathbf{z}_{ij,l}  $, allowing for higher flexibility.
+                We utilize  $ \text{Enc}_{\theta}(\mathbf{x}): \mathbb{R}^{T \times D} \xrightarrow{} \mathbb{R}^{D_z}   $ to encode the observed trajectories  $ \mathbf{x}  $ into  $ L  $ latent representations per edge in the observation. We utilize a fully connected GNN with message-passing to infer latents using the encoder module in \cite{Kipf2018NeuralRI}. Instead of classifying edge types and using them as a gate ouputs,  we utilize a continuous latent code  $ \mathbf{z}_{ij,l}  $, allowing for higher flexibility.
                 </p>
                 <p>
                     <b>Training Objective.</b>
@@ -542,22 +542,21 @@ pre {
                 where  $ \mathbf{z}_{ij,l} = \text{Enc}_{\theta}(\mathbf{x}(1...T^\prime))_{ij,l}  $ and  $ E_\theta^{ij,l}  $ is the energy function linked to the  $ l_\text{th}  $ potential of the encoded edge between nodes  $ i  $ and  $ j  $, respectively.
                 </p>
                 <p>
-                Since we wish to learn a set of potentials with high likelihood for the observed trajectory  $ \mathbf{x}  $, as a tractable supervised manner to learn such a set of valid potentials, we directly supervise that sample using \eqn{eq:mixing} corresponds to the original trajectory  $ \mathbf{x}  $. In particular, we sample  $ M  $ steps of Langevin sampling starting from  $ \Tilde{\mathbf{x}}^0  $, which is initialized from uniform noise and the initial conditions fixed as the ground-truth  $ \vx(1...T_0)  $:
+                Since we wish to learn a set of potentials with high likelihood for the observed trajectory  $ \mathbf{x}  $, as a tractable supervised manner to learn such a set of valid potentials, we directly supervise that sample using \eqn{eq:mixing} corresponds to the original trajectory  $ \mathbf{x}  $. In particular, we sample  $ M  $ steps of Langevin sampling starting from  $ \tilde{\mathbf{x}}^0  $, which is initialized from uniform noise and the initial conditions fixed as the ground-truth  $ \mathbf{x}(1...T_0)  $:
                 </p>
                 <p>
                 \begin{equation}
-                 \Tilde{\mathbf{x}}^m =   \Tilde{\mathbf{x}}^{m-1}- \frac{\lambda}{2}\nabla_{\mathbf{x}}\sum_{ij,l}{E_\theta^{ij,l}(\Tilde{\mathbf{x}}^{m-1};\mathbf{z}_{ij,l}} ) + \omega^m, \label{eq:langevin-update}
+                 \tilde{\mathbf{x}}^m =   \tilde{\mathbf{x}}^{m-1}- \frac{\lambda}{2}\nabla_{\mathbf{x}}\sum_{ij,l}{E_\theta^{ij,l}(\tilde{\mathbf{x}}^{m-1};\mathbf{z}_{ij,l}} ) + \omega^m, \label{eq:langevin-update}
                 \end{equation}
                 </p>
                 <p>
-                where  $ m  $ is the  $ m_\text{th}  $ step and  $ \lambda  $ is the step size and  $ \omega^m \sim \mathcal{N}(0, \lambda)  $. We then compute MSE objective with  $ \Tilde{\mathbf{x}}^M  $, which is the result of  $ M  $ sampling iterations and the ground truth trajectory  $ \mathbf{x}  $:
+                where  $ m  $ is the  $ m_\text{th}  $ step and  $ \lambda  $ is the step size and  $ \omega^m \sim \mathcal{N}(0, \lambda)  $. We then compute MSE objective with  $ \tilde{\mathbf{x}}^M  $, which is the result of  $ M  $ sampling iterations and the ground truth trajectory  $ \mathbf{x}  $:
                 </p>
                 <p>
                     \begin{equation}
-                      \mathcal{L}_{\text{MSE}}(\theta) = \| \Tilde{\mathbf{x}}^M- \mathbf{x} \|^2.
+                      \mathcal{L}_{\text{MSE}}(\theta) = \| \tilde{\mathbf{x}}^M- \mathbf{x} \|^2.
                 \end{equation}
-                % \vspace{-1pt}
-                We optimize both  $ \Tilde{\mathbf{x}}  $ and the parameters  $ \theta  $ with automatic differentiation..
+                We optimize both  $ \tilde{\mathbf{x}}  $ and the parameters  $ \theta  $ with automatic differentiation..
                 </p>
         </div>
     </section>
@@ -631,14 +630,14 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
                     <b>Velocity Potentials</b> We incorporate the following velocity potential as an energy function:  $ E = \epsilon \lambda \sum_{i,t}\sqrt{(\mathbf{v}_{x,i}^t)^2 + (\mathbf{v}_{y,i}^t)^2} = \epsilon \lambda\sum_{i,t}mod(\mathbf{v}_{i}^t)  $, for particle  $ i  $ in time  $ t  $. The weight  $ \lambda =1e-2/{N}  $ scales the effect of this function over the rest and  $ \epsilon  $ is a multiplicative constant that indicates the strength and direction of the potential. Figure \ref{fig:new-constraints} (two top rows), we show (\textbf{i.})  $ \epsilon = 0  $: Reconstruction (top-left); (\textbf{ii.})  $ \epsilon = 4  $: Decrease of velocity (middle-left); (\textbf{iii.})  $ \epsilon = -5  $: Low increase of velocity (top-right); and (\textbf{iv.})  $ \epsilon = -10  $: High increase of velocity (middle-right)
                 </p>
                 <p>
-                    <b>Goal Potentials</b> We also add at test-time an attraction potential as a the squared distance of the predicted coordinates to the goal:  $ P = \epsilon\lambda \sum_{i,t}(\Tilde{\mathbf{p}}^{0:T-1}_i - \mathbf{g})^2  $, where  $ \mathbf{g}  $ is defined as the coordinates of our goal point. We define the trajectory coordinates  $ \Tilde{\mathbf{p}}^{t}_i  $ as an accumulation of the un-normalized velocities  $ \mathbf{v}^{t}_i  $ predicted by NIIP:  $ \Tilde{\mathbf{p}}^{t+1}_i = \sum_{t}(\mathbf{v}^{0:t}_i) + \mathbf{p}^0_i  $ for particle  $ i  $ at time-step  $ t  $.  Here,  $ \mathbf{p}^1  $ is fixed initial ground-truth location of the particle at time 0 and  $ \lambda =5e-4/{N}  $.
+                    <b>Goal Potentials</b> We also add at test-time an attraction potential as a the squared distance of the predicted coordinates to the goal:  $ P = \epsilon\lambda \sum_{i,t}(\tilde{\mathbf{p}}^{0:T-1}_i - \mathbf{g})^2  $, where  $ \mathbf{g}  $ is defined as the coordinates of our goal point. We define the trajectory coordinates  $ \tilde{\mathbf{p}}^{t}_i  $ as an accumulation of the un-normalized velocities  $ \mathbf{v}^{t}_i  $ predicted by NIIP:  $ \tilde{\mathbf{p}}^{t+1}_i = \sum_{t}(\mathbf{v}^{0:t}_i) + \mathbf{p}^0_i  $ for particle  $ i  $ at time-step  $ t  $.  Here,  $ \mathbf{p}^1  $ is fixed initial ground-truth location of the particle at time 0 and  $ \lambda =5e-4/{N}  $.
                 </p>
                 <p>
                 We explore quantitatively the effect of different magnitudes of the added goal potential for prediction in the Charged dataset. Our test set is composed by 1k samples.
                 For this experiment, the particles live within a  $ [-1,1]  $ box, for both  $ x  $ and  $ y  $ coordinates. The goal is the center  $ \mathbf{g} = (0,0)  $. In the table,  $ P_{add}  $ indicates the use of edge potentials encoded by NIIP while adding the new potentials with different strengths: (\textbf{i.})  $ s1: \epsilon=1  $, (\textbf{ii.})  $ s2: \epsilon=5  $ and (\textbf{iii.})  $ s3: \epsilon=10  $. We observe how the squared distance to the goal decreases as expected.
                 </p>
                 <p>
-                    <b>Avoid Area Potentials</b> In this case, we penalize the portion of the predicted trajectory  $ \Tilde{\mathbf{p}}^{t}_i  $ that is inside a given restricted area  $ \mathbf{A}  $. We do so by computing the distance of each particle  $ i  $ that lays within the region  $ \mathbf{A}  $ to the borders  $ \mathbf{b}_A  $ of  $ \mathbf{A}  $. The added potential is:  $ P = \epsilon\lambda \sum_{i,t}(\Tilde{\mathbf{p}}_{A,i}^{0:T-1} - \mathbf{b}_A - C)^2  $, where  $ C  $ is a small margin that ensures that the particles are repelled outside of the boundaries of  $ \mathbf{A}  $. With  $ \lambda =1e-3/{N}  $.
+                    <b>Avoid Area Potentials</b> In this case, we penalize the portion of the predicted trajectory  $ \tilde{\mathbf{p}}^{t}_i  $ that is inside a given restricted area  $ \mathbf{A}  $. We do so by computing the distance of each particle  $ i  $ that lays within the region  $ \mathbf{A}  $ to the borders  $ \mathbf{b}_A  $ of  $ \mathbf{A}  $. The added potential is:  $ P = \epsilon\lambda \sum_{i,t}(\tilde{\mathbf{p}}_{A,i}^{0:T-1} - \mathbf{b}_A - C)^2  $, where  $ C  $ is a small margin that ensures that the particles are repelled outside of the boundaries of  $ \mathbf{A}  $. With  $ \lambda =1e-3/{N}  $.
                 In the Table below (row 2), we explore the effect of different strengths of this potential type, in the prediction task. We also provide a visual example. For this experiment, we avoid the area  $ \mathbf{A} = [(0, -1), (1, 1)]  $, which corresponds to half of the box (see Figure). We use the following parameters: (\textbf{i.})  $ s1: \epsilon=1  $, (\textbf{ii.})  $ s2: \epsilon=5e1  $ and (\textbf{iii.})  $ s3: \epsilon=5e2 $ .
                 </p>
                 <center>
