@@ -516,13 +516,13 @@ pre {
                 </p>
                 <p>
                 <b>Relational Potentials.</b>
-                To effectively parameterize different potentials for separate interactions, we learn a latent conditioned energy function  $ E_\theta(\mathbf{x}, \mathbf{z)  \mathbb{R}^{T \times D} \times \mathbb{R}^{D_z} \xrightarrow{} \mathbb{R}$. Then, inferring a set of different potentials corresponds to inferring a latent  $ \mathbf{z \in \mathbb{R}^{D_z}  $ that conditions an energy function.
-                Given a trajectory  $ \mathbf{x}(1...T)_i  $, we infer a set of  $ L  $ different latent vectors for each directed pair of interacting nodes in a trajectory. Thus, given a set of  $ N $ different nodes, this corresponds to a set of  $ N(N-1)L $ energy functions.
+                To effectively parameterize different potentials for separate interactions, we learn a latent conditioned energy function  $ E_\theta(\mathbf{x}$$, \mathbf{z) : \mathbb{R}^{T \times D} \times $$ \mathbb{R}^{D_z} \xrightarrow{} \mathbb{R}$. Then, inferring a set of different potentials corresponds to inferring a latent  $ \mathbf{z \in \mathbb{R}^{D_z}  $ that conditions an energy function.
+                Given a trajectory  $ \mathbf{x}(1...T)_i $, we infer a set of  $ L $ different latent vectors for each directed pair of interacting nodes in a trajectory. Thus, given a set of  $ N $ different nodes, this corresponds to a set of  $ N(N-1)L $ energy functions.
                 </p>
                 <p>
-                To generate a trajectory, we optimize the energy function  $ E(\mathbf{x}) = \sum_{ij,l} E_\theta^{ij,l}(\mathbf{x};\mathbf{z}_{ij,l})  $, across node indices  $ i  $ and  $ j  $ from  $ 1  $ to  $ N  $ and latent vectors  $ l  $ from  $ 1  $ to  $L  $. However, assigning one energy function to each latent code becomes prohibitively expensive as the number of nodes in a trajectory increases. Thus, to reduce this computational burden, we parameterize  $L  $ energy functions as shared message passing graph networks, grouping all edge contributions  $ ij  $ in a single network. The energy is then computed as a summation over all individual node energies after message passing.
-                To evaluate the energy corresponding to a single edge factor  $ \mathbf{z}_{ij,l}  $ we mask out the contributions of all other edges to the final node energies.
-                To condition to message passing shared graph network on each inferred latent  $ \mathbf{z}_{ij,l}  $, each edge  $ e(i,j)  $ in the graph is conditioned by the corresponding encoded edge latent code  $ \mathbf{z}_{ij,l}  $, by means of FiLM modulation.
+                To generate a trajectory, we optimize the energy function  $ E(\mathbf{x}) = \sum_{ij,l} E_\theta^{ij,l}(\mathbf{x};\mathbf{z}_{ij,l})  $, across node indices  $ i $ and  $ j $ from  $ 1 $ to  $ N $ and latent vectors  $ l  $ from  $ 1  $ to  $L  $. However, assigning one energy function to each latent code becomes prohibitively expensive as the number of nodes in a trajectory increases. Thus, to reduce this computational burden, we parameterize  $L  $ energy functions as shared message passing graph networks, grouping all edge contributions  $ ij  $ in a single network. The energy is then computed as a summation over all individual node energies after message passing.
+                To evaluate the energy corresponding to a single edge factor  $ \mathbf{z}_{ij,l} $ we mask out the contributions of all other edges to the final node energies.
+                To condition to message passing shared graph network on each inferred latent  $ \mathbf{z}_{ij,l} $, each edge  $ e(i,j)  $ in the graph is conditioned by the corresponding encoded edge latent code  $ \mathbf{z}_{ij,l}  $, by means of FiLM modulation.
                 </p>
                 <p>
                 <b>Inferring Energy Potentials.</b>
@@ -537,7 +537,6 @@ pre {
                 \begin{align}
                     p(\mathbf{x}|\{\mathbf{z}\}) &\propto \prod_{i,j,l \forall i \neq j} {p(\mathbf{x}|\mathbf{z}_{ij,l})} =
                     \nonumber \\ &= \text{exp}\left({-E_\theta^{ij,l}(\mathbf{x};\text{Enc}_{\theta}(\mathbf{x}(1...T^\prime))_{ij,l}}) \right),
-                    \label{eq:poe}
                 \end{align}
                 where  $ \mathbf{z}_{ij,l} = \text{Enc}_{\theta}(\mathbf{x}(1...T^\prime))_{ij,l}  $ and  $ E_\theta^{ij,l}  $ is the energy function linked to the  $ l_\text{th}  $ potential of the encoded edge between nodes  $ i  $ and  $ j  $, respectively.
                 </p>
@@ -553,8 +552,8 @@ pre {
                 where  $ m  $ is the  $ m_\text{th}  $ step and  $ \lambda  $ is the step size and  $ \omega^m \sim \mathcal{N}(0, \lambda)  $. We then compute MSE objective with  $ \tilde{\mathbf{x}}^M  $, which is the result of  $ M  $ sampling iterations and the ground truth trajectory  $ \mathbf{x}  $:
                 </p>
                 <p>
-                    \begin{equation}
-                      \mathcal{L}_{\text{MSE}}(\theta) = \| \tilde{\mathbf{x}}^M- \mathbf{x} \|^2.
+                \begin{equation}
+                  \mathcal{L}_{\text{MSE}}(\theta) = \| \tilde{\mathbf{x}}^M- \mathbf{x} \|^2.
                 \end{equation}
                 We optimize both  $ \tilde{\mathbf{x}}  $ and the parameters  $ \theta  $ with automatic differentiation..
                 </p>
