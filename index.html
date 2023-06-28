@@ -578,7 +578,7 @@ pre {
 
             <figure>
                 <a>
-                    <img width="100%" src="materials/intermix.png">
+                    <img width="70%" src="materials/intermix.png">
                 </a>
                 <p class="caption">
                     <br>NIIP can recombine encoded potentials at test-time learned from different datasets. </br> Illustrated, samples from Springs (Col. 1) and Charged (Col. 2) and their recombinations (Col. 3). NIIP encodes both trajectories. NIIP is able to reconstruct trajectories framed in green while swapping the edge potentials associated to the nodes in the green dashed box for the ones in the red dashed boxes. Recombinations look semantically plausible.
@@ -639,28 +639,29 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
                     <b>Avoid Area Potentials</b> In this case, we penalize the portion of the predicted trajectory  $ \tilde{\mathbf{p}}^{t}_i  $ that is inside a given restricted area  $ \mathbf{A}  $. We do so by computing the distance of each particle  $ i  $ that lays within the region  $ \mathbf{A}  $ to the borders  $ \mathbf{b}_A  $ of  $ \mathbf{A}  $. The added potential is:  $ P = \epsilon\lambda \sum_{i,t}(\tilde{\mathbf{p}}_{A,i}^{0:T-1} - \mathbf{b}_A - C)^2  $, where  $ C  $ is a small margin that ensures that the particles are repelled outside of the boundaries of  $ \mathbf{A}  $. With  $ \lambda =1e-3/{N}  $.
                 In the Table below (row 2), we explore the effect of different strengths of this potential type, in the prediction task. We also provide a visual example. For this experiment, we avoid the area  $ \mathbf{A} = [(0, -1), (1, 1)]  $, which corresponds to half of the box (see Figure). We use the following parameters: (\textbf{i.})  $ s1: \epsilon=1  $, (\textbf{ii.})  $ s2: \epsilon=5e1  $ and (\textbf{iii.})  $ s3: \epsilon=5e2 $ .
                 </p>
+
+                <center>
+                    <figure>
+                        <a>
+                            <img width="60%" src="materials/new-potentials-charged.png">
+                        </a>
+                        <p class="caption">
+                        </p> <br>
+                    </figure>
+                </center>
+                <center>
+                    <figure>
+                        <a>
+                            <img width="60%" src="materials/new-potentials-table.png">
+                        </a>
+                        <p class="caption">
+                        </p> <br>
+                    </figure>
+                </center>
                 <center>
                     <figure>
                         <a>
                             <img width="100%" src="materials/new-potentials-nba.png">
-                        </a>
-                        <p class="caption">
-                        </p> <br>
-                    </figure>
-                </center>
-                <center>
-                    <figure>
-                        <a>
-                            <img width="100%" src="materials/new-potentials-charged.png">
-                        </a>
-                        <p class="caption">
-                        </p> <br>
-                    </figure>
-                </center>
-                <center>
-                    <figure>
-                        <a>
-                            <img width="100%" src="materials/new-potentials-table.png">
                         </a>
                         <p class="caption">
                         </p> <br>
