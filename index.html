@@ -575,7 +575,7 @@ pre {
                     The result is a natural combination of the two datasets, which affect only the targeted edges.
 				</p>
             </div> 
-
+            <center>
             <figure>
                 <a>
                     <img width="70%" src="materials/intermix.png">
@@ -646,6 +646,7 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
                             <img width="60%" src="materials/new-potentials-charged.png">
                         </a>
                         <p class="caption">
+                            <b>With NIIP we can add and control test-time potentials to achieve a desired behavior</b>. We design test-time potentials to steer trajectories into a goal. In row 1 of the table, we show the squared distance after applying a goal potential towards the center (0,0) of the scene with different strengths. In row 2, we report the percentage of time-steps that particles stay in a particular area A = [(0, −1), (1, 1)] after applying a potential that enforces avoiding A. The figure shows the effect of applying test-time potentials in the latter experiment.
                         </p> <br>
                     </figure>
                 </center>
@@ -655,6 +656,7 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
                             <img width="60%" src="materials/new-potentials-table.png">
                         </a>
                         <p class="caption">
+                            <b>Quantitative evaluation of out-of-distribution detection</b>. We evaluate the average energy associated to each node-type in a scene. In the left, NIIP is trained on Springs and evaluated onn (i) Springs (ii) Charged and (iii) S&C, a Springs-Charged mixed dataset. For the NBA case in the right, we train NIIP for the subset of player (P) trajectories of the dataset and evaluate the energies in a setting with player nodes and one ball node. We measure accuracy in detecting the ball trajectory.
                         </p> <br>
                     </figure>
                 </center>
