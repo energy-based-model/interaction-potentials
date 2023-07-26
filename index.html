@@ -498,7 +498,7 @@ pre {
         <div class="flex-row">
             <p>
             Systems consisting of interacting agents are prevalent in the world, ranging from dynamical systems in physics to complex biological networks. To build systems which can interact robustly in the real world, it is thus important to be able to infer the precise interactions governing such systems.  Existing approaches typically discover such interactions by explicitly modeling the feed-forward dynamics of the trajectories. In this work, we propose Neural Interaction Inference with Potentials (NIIP) as an alternative approach to discover such interactions that enables greater flexibility in trajectory modeling: it discovers a set of relational potentials, represented as energy functions, which when minimized reconstruct the original trajectory.
-            NIIP assigns low energy to the subset of trajectories which respect the relational constraints observed.
+            NIIP assigns low energy to the subs et of trajectories which respect the relational constraints observed.
             We illustrate that with these representations NIIP displays unique capabilities in test-time. First, it allows trajectory manipulation, such as interchanging interaction types across separately trained models, as well as trajectory forecasting. Additionally, it allows adding external hand-crafted potentials at test-time. Finally, NIIP enables the detection of out-of-distribution samples and anomalies without explicit training.
             </p>
         </div>
@@ -594,7 +594,7 @@ pre {
             <div class="flex-row">
                 <p>We further utilize the potential value or energy produced by NIIP over a trajectory to detect out-of-distribution interactions in a trajectory. In our proposed architecture, energy is evaluated at the node level. Therefore, if NIIP has been trained with a specific dataset, the potentials associated to out-of-distribution type of edges are expected to correspond to higher energy.
 We design a new dataset (Charged-Springs) as a combination of Springs and Charged interaction types. In simulation, nodes are assigned both roles of Charged and Springs particles, but all the forces they receive correspond to one of the two types with probability  $ p=0.5  $. We train a model with the Springs dataset and evaluate the energies in the proposed mixed setting.
-Figure \ref{fig:ood} shows qualitatively how the energy is considerably higher for the nodes with Charged-type forces (drawn in red). Quantitative results are summarized in Table \ref{tab:ood} for 1k test samples. In the left, we can see that energies corresponding to Spring-type nodes are considerably lower than for Charged-type nodes, indicating that potentials are correctly capturing the behavior of the desired interactions.
+The figure below shows qualitatively how the energy is considerably higher for the nodes with Charged-type forces (drawn in red). Quantitative results are summarized in the Table below for 1k test samples. In the left, we can see that energies corresponding to Spring-type nodes are considerably lower than for Charged-type nodes, indicating that potentials are correctly capturing the behavior of the desired interactions.
 We further evaluate the OOD detection for NBA SportsVU dataset. For this experiment, we train NIIP with the 10 players disregarding the Ball node. At test-time, we evaluate the trained model switching one of the players by the Ball node for 1k samples. We observe how the energy corresponding to the Ball is considerably higher. We further train a single parameter binary classifier and find that we can detect the Ball in 70.1\% of instances (Table 1 right).
 </p>
             </div> 
@@ -602,7 +602,7 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
         <center>
             <figure>
                 <a>
-                    <img width="60%" src="materials/ood.png">
+                    <img width="100%" src="materials/ood.png">
                 </a>
                 <p class="caption">
                     <b>(left, figure) Out-Of-Distribution Detection with NIIP</b>. A model trained with certain relation types can detect when a trajectory exhibits a new type of relation. The illustrated trajectories show the energy associated to each one of the nodes. Red trajectories: Charged particles, Blue-Green trajectories: Springs particles. We train NIIP in Springs dataset. Our model assigns higher energies to those nodes that behave differently than the training set. <b>(right, table) Quantitative evaluation of out-of-distribution detection</b>.  We evaluate the average energy associated to each node-type in a scene. In the left, NIIP is trained on Springs and evaluated onn (i) Springs (ii) Charged and (iii) S\&C, a Springs-Charged mixed dataset. For the NBA case in the right, we train NIIP for the subset of player (P) trajectories of the dataset and evaluate the energies in a setting with player nodes and one ball node. We measure accuracy in detecting the ball trajectory.
@@ -627,7 +627,8 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
             <div class="flex-row">
                 <p>Another advantage of our approach is that it can flexibly incorporate test-time user specified potentials. For this experiment, we investigate three different sets of potentials.
                     <p>
-                    <b>Velocity Potentials</b> We incorporate the following velocity potential as an energy function:  $ E = \epsilon \lambda \sum_{i,t}\sqrt{(\mathbf{v}_{x,i}^t)^2 + (\mathbf{v}_{y,i}^t)^2} = \epsilon \lambda\sum_{i,t}mod(\mathbf{v}_{i}^t)  $, for particle  $ i  $ in time  $ t  $. The weight  $ \lambda =1e-2/{N}  $ scales the effect of this function over the rest and  $ \epsilon  $ is a multiplicative constant that indicates the strength and direction of the potential. Figure \ref{fig:new-constraints} (two top rows), we show (\textbf{i.})  $ \epsilon = 0  $: Reconstruction (top-left); (\textbf{ii.})  $ \epsilon = 4  $: Decrease of velocity (middle-left); (\textbf{iii.})  $ \epsilon = -5  $: Low increase of velocity (top-right); and (\textbf{iv.})  $ \epsilon = -10  $: High increase of velocity (middle-right)
+                    <b>Velocity Potentials</b> We incorporate the following velocity potential as an energy function:  $ E = \epsilon \lambda \sum_{i,t}\sqrt{(\mathbf{v}_{x,i}^t)^2 + (\mathbf{v}_{y,i}^t)^2} = \epsilon \lambda\sum_{i,t}mod(\mathbf{v}_{i}^t)  $, for particle  $ i  $ in time  $ t  $. The weight  $ \lambda =1e-2/{N}  $ scales the effect of this function over the rest and  $ \epsilon  $ is a multiplicative constant that indicates the strength and direction of the potential.
+<!--                Figure \ref{fig:new-constraints} (two top rows), we show (\textbf{i.})  $ \epsilon = 0  $: Reconstruction (top-left); (\textbf{ii.})  $ \epsilon = 4  $: Decrease of velocity (middle-left); (\textbf{iii.})  $ \epsilon = -5  $: Low increase of velocity (top-right); and (\textbf{iv.})  $ \epsilon = -10  $: High increase of velocity (middle-right)-->
                 </p>
                 <p>
                     <b>Goal Potentials</b> We also add at test-time an attraction potential as a the squared distance of the predicted coordinates to the goal:  $ P = \epsilon\lambda \sum_{i,t}(\tilde{\mathbf{p}}^{0:T-1}_i - \mathbf{g})^2  $, where  $ \mathbf{g}  $ is defined as the coordinates of our goal point. We define the trajectory coordinates  $ \tilde{\mathbf{p}}^{t}_i  $ as an accumulation of the un-normalized velocities  $ \mathbf{v}^{t}_i  $ predicted by NIIP:  $ \tilde{\mathbf{p}}^{t+1}_i = \sum_{t}(\mathbf{v}^{0:t}_i) + \mathbf{p}^0_i  $ for particle  $ i  $ at time-step  $ t  $.  Here,  $ \mathbf{p}^1  $ is fixed initial ground-truth location of the particle at time 0 and  $ \lambda =5e-4/{N}  $.
@@ -664,7 +665,7 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
                 <center>
                     <figure>
                         <a>
-                            <img width="100%" src="materials/new_potentials_nba.png">
+                            <img width="100%" src="materials/added_potentials_nba.png">
                         </a>
                         <p class="caption">
                             <b>NIIP is able to incorporate new potentials in test-time</b>. We can see depicted reconstructions of NBA samples with added potentials.
