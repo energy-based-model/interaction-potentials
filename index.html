@@ -482,7 +482,7 @@ pre {
     <section id="teaser-image">
         <center>
             <figure>
-                <video class="centered" width="80%" autoplay loop muted playsinline class="video-background " >
+                <video class="centered" width="100%" autoplay loop muted playsinline class="video-background " >
                     <source src="materials/trimmed_add_pot_video.mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -536,7 +536,7 @@ pre {
                 </p>
                 <p>
                 \begin{equation}
-                    p(\mathbf{x}|\{\mathbf{z}\}) &\propto \prod_{i,j,l \forall i \neq j} {p(\mathbf{x}|\mathbf{z}_{ij,l})} =
+                    p(\mathbf{x}|\{\mathbf{z}\}) \propto \prod_{i,j,l \forall i \neq j} {p(\mathbf{x}|\mathbf{z}_{ij,l})} =
                     \nonumber = \text{exp}\left({-E_\theta^{ij,l}(\mathbf{x};\text{Enc}_{\theta}(\mathbf{x}(1...T^\prime))_{ij,l}}) \right),
                 \end{equation}
                 where  $ \mathbf{z}_{ij,l} = \text{Enc}_{\theta}(\mathbf{x}(1...T^\prime))_{ij,l}  $ and  $ E_\theta^{ij,l}  $ is the energy function linked to the  $ l_\text{th}  $ potential of the encoded edge between nodes  $ i  $ and  $ j  $, respectively.
@@ -685,7 +685,7 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
             <center>
             <figure>
                 <a>
-                    <img width="49%" src="materials/table-synth.png">
+                    <img width="49%" src="materials/Prediction_ Springs Dataset.png">
                 </a>
                 <p class="caption">
                 </p> <br>
@@ -694,7 +694,21 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
         <center>
             <figure>
                 <a>
-                    <img width="49%" src="materials/table-real.png">
+                    <img width="49%" src="materials/Prediction_ Charged Dataset.png">
+                </a>
+                <p class="caption">
+                </p> <br>
+            </figure>
+                        <figure>
+                <a>
+                    <img width="49%" src="materials/Prediction_ NBA SportsVU Dataset.png">
+                </a>
+                <p class="caption">
+                </p> <br>
+            </figure>
+                        <figure>
+                <a>
+                    <img width="49%" src="materials/Prediction_ JPL Horizons Dataset.png">
                 </a>
                 <p class="caption">
                 </p> <br>
