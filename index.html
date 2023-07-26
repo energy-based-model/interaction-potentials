@@ -594,13 +594,16 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
 </p>
             </div> 
 
+<!--        Red trajectories: Charged particles, Blue-Green trajectories: Springs particles. We train NIIP in Springs dataset. Our model assigns higher energies to those nodes that behave differently than the training set.-->
+<!--        In the left, NIIP is trained on Springs and evaluated onn (i) Springs (ii) Charged and (iii) S\&C, a Springs-Charged mixed dataset. For the NBA case in the right, we train NIIP for the subset of player (P) trajectories of the dataset and evaluate the energies in a setting with player nodes and one ball node. We measure accuracy in detecting the ball trajectory.-->
         <center>
             <figure>
                 <a>
                     <img width="100%" src="materials/ood.png">
                 </a>
                 <p class="caption">
-                    <b>(left, figure) Out-Of-Distribution Detection with NIIP</b>. A model trained with certain relation types can detect when a trajectory exhibits a new type of relation. The illustrated trajectories show the energy associated to each one of the nodes. Red trajectories: Charged particles, Blue-Green trajectories: Springs particles. We train NIIP in Springs dataset. Our model assigns higher energies to those nodes that behave differently than the training set. <b>(right, table) Quantitative evaluation of out-of-distribution detection</b>.  We evaluate the average energy associated to each node-type in a scene. In the left, NIIP is trained on Springs and evaluated onn (i) Springs (ii) Charged and (iii) S\&C, a Springs-Charged mixed dataset. For the NBA case in the right, we train NIIP for the subset of player (P) trajectories of the dataset and evaluate the energies in a setting with player nodes and one ball node. We measure accuracy in detecting the ball trajectory.
+                    <b>(left, figure) Out-Of-Distribution Detection with NIIP</b>. A model trained with certain relation types can detect when a trajectory exhibits a new type of relation. The illustrated trajectories show the energy associated to each one of the nodes.
+                     <b>(right, table) Quantitative evaluation of out-of-distribution detection</b>.  We evaluate the average energy associated to each node-type in a scene.
                 </p> <br>
             </figure>
             </center>
@@ -630,11 +633,11 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
                 </p>
                 <p>
                 We explore quantitatively the effect of different magnitudes of the added goal potential for prediction in the Charged dataset. Our test set is composed by 1k samples.
-                For this experiment, the particles live within a  $ [-1,1]  $ box, for both  $ x  $ and  $ y  $ coordinates. The goal is the center  $ \mathbf{g} = (0,0)  $. In the table,  $ P_{add}  $ indicates the use of edge potentials encoded by NIIP while adding the new potentials with different strengths: (\textbf{i.})  $ s1: \epsilon=1  $, (\textbf{ii.})  $ s2: \epsilon=5  $ and (\textbf{iii.})  $ s3: \epsilon=10  $. We observe how the squared distance to the goal decreases as expected.
+                For this experiment, the particles live within a  $ [-1,1]  $ box, for both  $ x  $ and  $ y  $ coordinates. The goal is the center  $ \mathbf{g} = (0,0)  $. In the table,  $ P_{add}  $ indicates the use of edge potentials encoded by NIIP while adding the new potentials with different strengths: (i.)  $ s1: \epsilon=1  $, (ii.)  $ s2: \epsilon=5  $ and (iii.)  $ s3: \epsilon=10  $. We observe how the squared distance to the goal decreases as expected.
                 </p>
                 <p>
                     <b>Avoid Area Potentials</b> In this case, we penalize the portion of the predicted trajectory  $ \tilde{\mathbf{p}}^{t}_i  $ that is inside a given restricted area  $ \mathbf{A}  $. We do so by computing the distance of each particle  $ i  $ that lays within the region  $ \mathbf{A}  $ to the borders  $ \mathbf{b}_A  $ of  $ \mathbf{A}  $. The added potential is:  $ P = \epsilon\lambda \sum_{i,t}(\tilde{\mathbf{p}}_{A,i}^{0:T-1} - \mathbf{b}_A - C)^2  $, where  $ C  $ is a small margin that ensures that the particles are repelled outside of the boundaries of  $ \mathbf{A}  $. With  $ \lambda =1e-3/{N}  $.
-                In the Table below (row 2), we explore the effect of different strengths of this potential type, in the prediction task. We also provide a visual example. For this experiment, we avoid the area  $ \mathbf{A} = [(0, -1), (1, 1)]  $, which corresponds to half of the box (see Figure). We use the following parameters: (\textbf{i.})  $ s1: \epsilon=1  $, (\textbf{ii.})  $ s2: \epsilon=5e1  $ and (\textbf{iii.})  $ s3: \epsilon=5e2 $ .
+                In the Table below (row 2), we explore the effect of different strengths of this potential type, in the prediction task. We also provide a visual example. For this experiment, we avoid the area  $ \mathbf{A} = [(0, -1), (1, 1)]  $, which corresponds to half of the box (see Figure). We use the following parameters: (i.)  $ s1: \epsilon=1  $, (ii.)  $ s2: \epsilon=5e1  $ and (iii.)  $ s3: \epsilon=5e2 $ .
                 </p>
 
                 <center>
@@ -643,7 +646,8 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
                             <img width="60%" src="materials/added_potentials.png">
                         </a>
                         <p class="caption">
-                            <b>(top, figure) With NIIP we can add and control test-time potentials to achieve a desired behavior</b>. We design test-time potentials to steer trajectories into a goal. In row 1 of the table, we show the squared distance after applying a goal potential towards the center (0,0) of the scene with different strengths. In row 2, we report the percentage of time-steps that particles stay in a particular area A = [(0, −1), (1, 1)] after applying a potential that enforces avoiding A. The figure shows the effect of applying test-time potentials in the latter experiment. <b>(down, table) Quantitative evaluation of out-of-distribution detection</b>. We evaluate the average energy associated to each node-type in a scene. In the left, NIIP is trained on Springs and evaluated onn (i) Springs (ii) Charged and (iii) S&C, a Springs-Charged mixed dataset. For the NBA case in the right, we train NIIP for the subset of player (P) trajectories of the dataset and evaluate the energies in a setting with player nodes and one ball node. We measure accuracy in detecting the ball trajectory.
+                            <b>(top, figure) With NIIP we can add and control test-time potentials to achieve a desired behavior</b>.
+                            We design test-time potentials to steer trajectories into a goal. In row 1 of the table, we show the squared distance after applying a goal potential towards the center (0,0) of the scene with different strengths. In row 2, we report the percentage of time-steps that particles stay in a particular area A = [(0, −1), (1, 1)] after applying a potential that enforces avoiding A. The figure shows the effect of applying test-time potentials in the latter experiment.
                         </p> <br>
                     </figure>
                 </center>
@@ -821,7 +825,7 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
          <div class="row">
             <div class="column5">
                 <a href='https://scholar.google.com/citations?user=hbNllP0AAAAJ&hl=en'>
-                    <img  src=./materials/people/sznaier-m.jpeg class="figure-img img-fluid rounded-circle" height=200px width=200px>
+                    <img  src=./materials/people/mario.png class="figure-img img-fluid rounded-circle" height=200px width=200px>
                 </a>
                 <p class=profname> Mario Sznaier </p>
                 <p class=institution>Northeastern University</p>
@@ -837,7 +841,7 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
 
             <div class="column5">
                 <a href="https://scholar.google.com/citations?user=htt9T1AAAAAJ&hl=en">
-                    <img src=./materials/people/camps-o.jpeg class="figure-img img-fluid rounded-circle" height=100px width=200px>
+                    <img src=./materials/people/octavia.png class="figure-img img-fluid rounded-circle" height=100px width=200px>
                 </a>
                 <p class=profname> Octavia Camps </p>
                 <p class=institution>Northeastern University</p>
