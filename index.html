@@ -540,22 +540,25 @@ pre {
                 <p>
                 Since we wish to learn a set of potentials with high likelihood for the observed trajectory  $ \mathbf{x}  $, as a tractable supervised manner to learn such a set of valid potentials, we directly supervise that sample using \eqn{eq:mixing} corresponds to the original trajectory  $ \mathbf{x}  $. In particular, we sample  $ M  $ steps of Langevin sampling starting from  $ \tilde{\mathbf{x}}^0  $, which is initialized from uniform noise and the initial conditions fixed as the ground-truth  $ \mathbf{x}(1...T_0)  $:
                 </p>
+            <center>
                 <p>
-                    \begin{center}
                 \begin{equation}
                  \tilde{\mathbf{x}}^m =   \tilde{\mathbf{x}}^{m-1}- \frac{\lambda}{2}\nabla_{\mathbf{x}}\sum_{ij,l}{E_\theta^{ij,l}(\tilde{\mathbf{x}}^{m-1};\mathbf{z}_{ij,l}} ) + \omega^m, \label{eq:langevin-update}
                 \end{equation}
-                    \end{center}
                 </p>
+                </center>
                 <p>
                 where  $ m  $ is the  $ m_\text{th}  $ step and  $ \lambda  $ is the step size and  $ \omega^m \sim \mathcal{N}(0, \lambda)  $. We then compute MSE objective with  $ \tilde{\mathbf{x}}^M  $, which is the result of  $ M  $ sampling iterations and the ground truth trajectory  $ \mathbf{x}  $:
                 </p>
                 <p>
+                    <center>
                 \begin{equation}
                   \mathcal{L}_{\text{MSE}}(\theta) = \| \tilde{\mathbf{x}}^M- \mathbf{x} \|^2.
                 \end{equation}
+            </center>
                 We optimize both  $ \tilde{\mathbf{x}}  $ and the parameters  $ \theta  $ with automatic differentiation..
                 </p>
+
         </div>
     </section>
 
@@ -592,9 +595,13 @@ pre {
         <h2>Out-Of-Distribution Detection</h2>
             <div class="flex-row">
                 <p>We further utilize the potential value or energy produced by NIIP over a trajectory to detect out-of-distribution interactions in a trajectory. In our proposed architecture, energy is evaluated at the node level. Therefore, if NIIP has been trained with a specific dataset, the potentials associated to out-of-distribution type of edges are expected to correspond to higher energy.
-We design a new dataset (Charged-Springs) as a combination of Springs and Charged interaction types. In simulation, nodes are assigned both roles of Charged and Springs particles, but all the forces they receive correspond to one of the two types with probability  $ p=0.5  $. We train a model with the Springs dataset and evaluate the energies in the proposed mixed setting.
-The figure below shows qualitatively how the energy is considerably higher for the nodes with Charged-type forces (drawn in red). Quantitative results are summarized in the Table below for 1k test samples. In the left, we can see that energies corresponding to Spring-type nodes are considerably lower than for Charged-type nodes, indicating that potentials are correctly capturing the behavior of the desired interactions.
-We further evaluate the OOD detection for NBA SportsVU dataset. For this experiment, we train NIIP with the 10 players disregarding the Ball node. At test-time, we evaluate the trained model switching one of the players by the Ball node for 1k samples. We observe how the energy corresponding to the Ball is considerably higher. We further train a single parameter binary classifier and find that we can detect the Ball in 70.1% of instances (Bottom/Right of the table).
+
+                    We design a new dataset (Charged-Springs) as a combination of Springs and Charged interaction types.
+
+<!--                    In simulation, nodes are assigned both roles of Charged and Springs particles, but all the forces they receive correspond to one of the two types with probability  $ p=0.5  $. We train a model with the Springs dataset and evaluate the energies in the proposed mixed setting.-->
+The figure below shows qualitatively how the energy is considerably higher for the nodes with Charged-type forces (drawn in red) when trained for Springs. Quantitative results are summarized in the Table below for 1k test samples.
+<!--                    In the left, we can see that energies corresponding to Spring-type nodes are considerably lower than for Charged-type nodes, indicating that potentials are correctly capturing the behavior of the desired interactions.-->
+<!--We further evaluate the OOD detection for NBA SportsVU dataset. For this experiment, we train NIIP with the 10 players disregarding the Ball node. At test-time, we evaluate the trained model switching one of the players by the Ball node for 1k samples. We observe how the energy corresponding to the Ball is considerably higher. We further train a single parameter binary classifier and find that we can detect the Ball in 70.1% of instances (Bottom/Right of the table).-->
 </p>
             </div> 
 
@@ -668,7 +675,7 @@ We further evaluate the OOD detection for NBA SportsVU dataset. For this experim
                 <center>
                     <figure>
                         <a>
-                            <img width="80%" src="materials/added_potentials_nba.png">
+                            <img width="90%" src="materials/added_potentials_nba.png">
                         </a>
                         <p class="caption">
                             <b>NIIP is able to incorporate new potentials in test-time</b>. We can see depicted reconstructions of NBA samples with added potentials.
