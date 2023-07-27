@@ -516,9 +516,10 @@ pre {
                 Given a trajectory  $ \mathbf{x}(1...T)_i $, we infer a set of  $ L $ different latent vectors for each directed pair of interacting nodes in a trajectory. Thus, given a set of  $ N $ different nodes, this corresponds to a set of  $ N(N-1)L $ energy functions.
                 </p>
                 <p>
-                To generate a trajectory, we optimize the energy function  $ E(\mathbf{x}) = \sum_{ij,l} E_\theta^{ij,l}(\mathbf{x};\mathbf{z}_{ij,l})  $, across node indices  $ i $ and  $ j $ from  $ 1 $ to  $ N $ and latent vectors  $ l  $ from  $ 1  $ to  $L  $. However, assigning one energy function to each latent code becomes prohibitively expensive as the number of nodes in a trajectory increases. Thus, to reduce this computational burden, we parameterize  $L  $ energy functions as shared message passing graph networks, grouping all edge contributions  $ ij  $ in a single network. The energy is then computed as a summation over all individual node energies after message passing.
-                To evaluate the energy corresponding to a single edge factor  $ \mathbf{z}_{ij,l} $ we mask out the contributions of all other edges to the final node energies.
-                To condition to message passing shared graph network on each inferred latent  $ \mathbf{z}_{ij,l} $, each edge  $ e(i,j)  $ in the graph is conditioned by the corresponding encoded edge latent code  $ \mathbf{z}_{ij,l}  $, by means of FiLM modulation.
+                To generate a trajectory, we optimize the energy function  $ E(\mathbf{x}) = \sum_{ij,l} E_\theta^{ij,l}(\mathbf{x};\mathbf{z}_{ij,l})  $, across node indices  $ i $ and  $ j $ from  $ 1 $ to  $ N $ and latent vectors  $ l  $ from  $ 1  $ to  $L  $. However, assigning one energy function to each latent code becomes prohibitively expensive as the number of nodes in a trajectory increases. Thus, to reduce this computational burden, we parameterize  $L  $ energy functions as shared message passing graph networks, grouping all edge contributions  $ ij  $ in a single network.
+<!--                    The energy is then computed as a summation over all individual node energies after message passing.-->
+<!--                To evaluate the energy corresponding to a single edge factor  $ \mathbf{z}_{ij,l} $ we mask out the contributions of all other edges to the final node energies.-->
+<!--                To condition to message passing shared graph network on each inferred latent  $ \mathbf{z}_{ij,l} $, each edge  $ e(i,j)  $ in the graph is conditioned by the corresponding encoded edge latent code  $ \mathbf{z}_{ij,l}  $, by means of FiLM modulation.-->
                 </p>
                 <p>
                 <b>Inferring Energy Potentials.</b>
@@ -527,7 +528,8 @@ pre {
                 <p>
                     <b>Training Objective.</b>
                     To train NIIP, we infer a set of different EBM potentials by auto-encoding the underlying trajectory. In particular, given a  trajectory  $ \mathbf{x}(1...T)_i=\left(\mathbf{x}(1)_i,\dots,\mathbf{x}(T)_i\right)  $, we split the trajectory into initial conditions   $ \mathbf{x}(1...T_0)  $, corresponding to the first  $ T_0  $ states of the trajectory and  $ \mathbf{x}(T_0...T)  $, corresponding to the subsequent states of the trajectory, where each state of the trajectory consists of  $ N  $ different nodes. The edge potentials are encoded by observing a portion of the overall trajectory  $ \mathbf{x}(1...T^\prime)  $, where  $ T^\prime \leq T  $.
-                    We infer a set of different  $ L  $ latents per edge of input observations utilizing the observed states  $ \mathbf{x}(1...T^\prime)  $ using the encoder specified in \sect{sect:inference}, generating a set of latents  $ \{\mathbf{z}\}  $. We then aim to train energy functions so that the following unnormalized distribution assigns low energy and high likelihood to the full trajectory  $ \mathbf{x}  $:
+                    We assign high likelihood to the full trajectories $\mathbf{x}$:
+                    <!--                    We infer a set of different  $ L  $ latents per edge of input observations utilizing the observed states  $ \mathbf{x}(1...T^\prime)  $ using the encoder specified in \sect{sect:inference}, generating a set of latents  $ \{\mathbf{z}\}  $. We then aim to train energy functions so that the following unnormalized distribution assigns low energy and high likelihood to the full trajectory  $ \mathbf{x}  $:-->
                 </p>
                 <p>
                 \begin{equation}
@@ -539,9 +541,11 @@ pre {
                 Since we wish to learn a set of potentials with high likelihood for the observed trajectory  $ \mathbf{x}  $, as a tractable supervised manner to learn such a set of valid potentials, we directly supervise that sample using \eqn{eq:mixing} corresponds to the original trajectory  $ \mathbf{x}  $. In particular, we sample  $ M  $ steps of Langevin sampling starting from  $ \tilde{\mathbf{x}}^0  $, which is initialized from uniform noise and the initial conditions fixed as the ground-truth  $ \mathbf{x}(1...T_0)  $:
                 </p>
                 <p>
+                    \begin{center}
                 \begin{equation}
                  \tilde{\mathbf{x}}^m =   \tilde{\mathbf{x}}^{m-1}- \frac{\lambda}{2}\nabla_{\mathbf{x}}\sum_{ij,l}{E_\theta^{ij,l}(\tilde{\mathbf{x}}^{m-1};\mathbf{z}_{ij,l}} ) + \omega^m, \label{eq:langevin-update}
                 \end{equation}
+                    \end{center}
                 </p>
                 <p>
                 where  $ m  $ is the  $ m_\text{th}  $ step and  $ \lambda  $ is the step size and  $ \omega^m \sim \mathcal{N}(0, \lambda)  $. We then compute MSE objective with  $ \tilde{\mathbf{x}}^M  $, which is the result of  $ M  $ sampling iterations and the ground truth trajectory  $ \mathbf{x}  $:
