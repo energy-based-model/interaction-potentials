@@ -628,6 +628,8 @@ The figure below shows qualitatively how the energy is considerably higher for t
 <!--                We explore quantitatively the effect of different magnitudes of the added goal potential for prediction in the Charged dataset. Our test set is composed by 1k samples.-->
 <!--                For this experiment, the particles live within a  $ [-1,1]  $ box, for both  $ x  $ and  $ y  $ coordinates. The goal is the center  $ \mathbf{g} = (0,0)  $. In the table,  $ P_{add}  $ indicates the use of edge potentials encoded by NIIP while adding the new potentials with different strengths: (i.)  $ s1: \epsilon=1  $, (ii.)  $ s2: \epsilon=5  $ and (iii.)  $ s3: \epsilon=10  $. We observe how the squared distance to the goal decreases as expected.-->
 <!--                </p>-->
+                                 <p>Another advantage of our approach is that it can flexibly incorporate test-time user specified potentials. For this experiment, we investigate three different sets of potentials.
+                </p>
                 <p>
                     <b>Avoid Area Potentials</b> In this case, we penalize the portion of the predicted trajectory  $ \tilde{\mathbf{p}}^{t}_i  $ that is inside a given restricted area  $ \mathbf{A}  $. We do so by computing the distance of each particle  $ i  $ that lays within the region  $ \mathbf{A}  $ to the borders  $ \mathbf{b}_A  $ of  $ \mathbf{A}  $. The added potential is:  $ P = \epsilon\lambda \sum_{i,t}(\tilde{\mathbf{p}}_{A,i}^{0:T-1} - \mathbf{b}_A - C)^2  $, where  $ C  $ is a small margin that ensures that the particles are repelled outside of the boundaries of  $ \mathbf{A}  $. With  $ \lambda =1e-3/{N}  $.
                 In the Table below (row 2), we explore the effect of different strengths of this potential type, in the prediction task. We also provide a visual example. For this experiment, we avoid the area  $ \mathbf{A} = [(0, -1), (1, 1)]  $, which corresponds to half of the box (see Figure). We use the following parameters: (i.)  $ s1: \epsilon=1  $, (ii.)  $ s2: \epsilon=5e1  $ and (iii.)  $ s3: \epsilon=5e2 $ .
@@ -639,12 +641,11 @@ The figure below shows qualitatively how the energy is considerably higher for t
                             <img width="70%" src="materials/added_potentials.png">
                         </a>
                         <p class="caption">
-                            <b>(top, figure) With NIIP we can add and control test-time potentials to achieve a desired behavior</b>.
+                            <b>(top, figure) With NIIP we can add and control test-time potentials to achieve a desired behavior for Prediction in the Charged Dataset</b>.
                             We design test-time potentials to steer trajectories into a goal. In row 1 of the table, we show the squared distance after applying a goal potential towards the center (0,0) of the scene with different strengths. In row 2, we report the percentage of time-steps that particles stay in a particular area A = [(0, −1), (1, 1)] after applying a potential that enforces avoiding A. The figure shows the effect of applying test-time potentials in the latter experiment.
                         </p> <br>
                     </figure>
                 </center>
-                 <p>Another advantage of our approach is that it can flexibly incorporate test-time user specified potentials. For this experiment, we investigate three different sets of potentials.
                     <p>
                     <b>Velocity Potentials</b> We incorporate the following velocity potential as an energy function:  $ E = \epsilon \lambda \sum_{i,t}\sqrt{(\mathbf{v}_{x,i}^t)^2 + (\mathbf{v}_{y,i}^t)^2} = \epsilon \lambda\sum_{i,t}mod(\mathbf{v}_{i}^t)  $, for particle  $ i  $ in time  $ t  $. The weight  $ \lambda =1e-2/{N}  $ scales the effect of this function over the rest and  $ \epsilon  $ is a multiplicative constant that indicates the strength and direction of the potential.
 <!--                Figure \ref{fig:new-constraints} (two top rows), we show (\textbf{i.})  $ \epsilon = 0  $: Reconstruction (top-left); (\textbf{ii.})  $ \epsilon = 4  $: Decrease of velocity (middle-left); (\textbf{iii.})  $ \epsilon = -5  $: Low increase of velocity (top-right); and (\textbf{iv.})  $ \epsilon = -10  $: High increase of velocity (middle-right)-->
