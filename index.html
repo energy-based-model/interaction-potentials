@@ -540,22 +540,16 @@ pre {
                 <p>
                 Since we wish to learn a set of potentials with high likelihood for the observed trajectory  $ \mathbf{x}  $, as a tractable supervised manner to learn such a set of valid potentials, we directly supervise that sample using \eqn{eq:mixing} corresponds to the original trajectory  $ \mathbf{x}  $. In particular, we sample  $ M  $ steps of Langevin sampling starting from  $ \tilde{\mathbf{x}}^0  $, which is initialized from uniform noise and the initial conditions fixed as the ground-truth  $ \mathbf{x}(1...T_0)  $:
                 </p>
-            <center>
                 <p>
                 \begin{equation}
                  \tilde{\mathbf{x}}^m =   \tilde{\mathbf{x}}^{m-1}- \frac{\lambda}{2}\nabla_{\mathbf{x}}\sum_{ij,l}{E_\theta^{ij,l}(\tilde{\mathbf{x}}^{m-1};\mathbf{z}_{ij,l}} ) + \omega^m, \label{eq:langevin-update}
                 \end{equation}
                 </p>
-                </center>
                 <p>
                 where  $ m  $ is the  $ m_\text{th}  $ step and  $ \lambda  $ is the step size and  $ \omega^m \sim \mathcal{N}(0, \lambda)  $. We then compute MSE objective with  $ \tilde{\mathbf{x}}^M  $, which is the result of  $ M  $ sampling iterations and the ground truth trajectory  $ \mathbf{x}  $:
                 </p>
                 <p>
-                    <center>
-                \begin{equation}
-                  \mathcal{L}_{\text{MSE}}(\theta) = \| \tilde{\mathbf{x}}^M- \mathbf{x} \|^2.
-                \end{equation}
-            </center>
+                \[\mathcal{L}_{\text{MSE}}(\theta) = \| \tilde{\mathbf{x}}^M- \mathbf{x} \|^2.\]
                 We optimize both  $ \tilde{\mathbf{x}}  $ and the parameters  $ \theta  $ with automatic differentiation..
                 </p>
 
