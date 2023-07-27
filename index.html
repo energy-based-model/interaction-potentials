@@ -532,14 +532,14 @@ pre {
                     <!--                    We infer a set of different  $ L  $ latents per edge of input observations utilizing the observed states  $ \mathbf{x}(1...T^\prime)  $ using the encoder specified in \sect{sect:inference}, generating a set of latents  $ \{\mathbf{z}\}  $. We then aim to train energy functions so that the following unnormalized distribution assigns low energy and high likelihood to the full trajectory  $ \mathbf{x}  $:-->
                 </p>
                 <p>
-                    /[p(\mathbf{x}|\{\mathbf{z}\}) \propto \prod_{i,j,l \forall i \neq j} {p(\mathbf{x}|\mathbf{z}_{ij,l})}  = \text{exp}\left({-E_\theta^{ij,l}(\mathbf{x};\text{Enc}_{\theta}(\mathbf{x}(1...T^\prime))_{ij,l}}) \right),\]
+                    \[ p(\mathbf{x}|\{\mathbf{z}\}) \propto \prod_{i,j,l \forall i \neq j} {p(\mathbf{x}|\mathbf{z}_{ij,l})}  = \text{exp}\left({-E_\theta^{ij,l}(\mathbf{x};\text{Enc}_{\theta}(\mathbf{x}(1...T^\prime))_{ij,l}}) \right),\]
                 where  $ \mathbf{z}_{ij,l} = \text{Enc}_{\theta}(\mathbf{x}(1...T^\prime))_{ij,l}  $ and  $ E_\theta^{ij,l}  $ is the energy function linked to the  $ l_\text{th}  $ potential of the encoded edge between nodes  $ i  $ and  $ j  $, respectively.
                 </p>
                 <p>
                 Since we wish to learn a set of potentials with high likelihood for the observed trajectory  $ \mathbf{x}  $, as a tractable supervised manner to learn such a set of valid potentials, we directly supervise that sample using \eqn{eq:mixing} corresponds to the original trajectory  $ \mathbf{x}  $. In particular, we sample  $ M  $ steps of Langevin sampling starting from  $ \tilde{\mathbf{x}}^0  $, which is initialized from uniform noise and the initial conditions fixed as the ground-truth  $ \mathbf{x}(1...T_0)  $:
                 </p>
                 <p>
-                 \[\tilde{\mathbf{x}}^m =   \tilde{\mathbf{x}}^{m-1}- \frac{\lambda}{2}\nabla_{\mathbf{x}}\sum_{ij,l}{E_\theta^{ij,l}(\tilde{\mathbf{x}}^{m-1};\mathbf{z}_{ij,l}} ) + \omega^m,\]
+                 \[ \tilde{\mathbf{x}}^m =  \tilde{\mathbf{x}}^{m-1}- \frac{\lambda}{2}\nabla_{\mathbf{x}}\sum_{ij,l}{E_\theta^{ij,l}(\tilde{\mathbf{x}}^{m-1};\mathbf{z}_{ij,l}} ) + \omega^m,\]
                 </p>
                 <p>
                 where  $ m  $ is the  $ m_\text{th}  $ step and  $ \lambda  $ is the step size and  $ \omega^m \sim \mathcal{N}(0, \lambda)  $. We then compute MSE objective with  $ \tilde{\mathbf{x}}^M  $, which is the result of  $ M  $ sampling iterations and the ground truth trajectory  $ \mathbf{x}  $:
