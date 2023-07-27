@@ -543,10 +543,8 @@ pre {
                 </p>
                 <p>
                 where  $ m  $ is the  $ m_\text{th}  $ step and  $ \lambda  $ is the step size and  $ \omega^m \sim \mathcal{N}(0, \lambda)  $. We then compute MSE objective with  $ \tilde{\mathbf{x}}^M  $, which is the result of  $ M  $ sampling iterations and the ground truth trajectory  $ \mathbf{x}  $:
-                </p>
-                <p>
                 \[\mathcal{L}_{\text{MSE}}(\theta) = \| \tilde{\mathbf{x}}^M- \mathbf{x} \|^2.\]
-                We optimize both  $ \tilde{\mathbf{x}}  $ and the parameters  $ \theta  $ with automatic differentiation..
+                We optimize both  $ \tilde{\mathbf{x}}  $ and the parameters  $ \theta  $ with automatic differentiation.
                 </p>
 
         </div>
@@ -574,7 +572,7 @@ pre {
                     <img width="70%" src="materials/recombination.png">
                 </a>
                 <p class="caption">
-                    <br>NIIP can recombine encoded potentials at test-time learned from different datasets. </br> Illustrated, samples from Springs (Col. 1) and Charged (Col. 2) and their recombinations (Col. 3). NIIP encodes both trajectories. NIIP is able to reconstruct trajectories framed in green while swapping the edge potentials associated to the nodes in the green dashed box for the ones in the red dashed boxes. Recombinations look semantically plausible.
+                    <b>NIIP can recombine encoded potentials at test-time learned from different datasets.</b> Illustrated, samples from Springs (Col. 1) and Charged (Col. 2) and their recombinations (Col. 3). NIIP encodes both trajectories. NIIP is able to reconstruct trajectories framed in green while swapping the edge potentials associated to the nodes in the green dashed box for the ones in the red dashed boxes. Recombinations look semantically plausible.
                 </p> <br>
             </figure>
             </center>
@@ -603,8 +601,8 @@ The figure below shows qualitatively how the energy is considerably higher for t
                     <img width="100%" src="materials/ood.png">
                 </a>
                 <p class="caption">
-                    <b>(left, figure) Out-Of-Distribution Detection with NIIP</b>. A model trained with certain relation types can detect when a trajectory exhibits a new type of relation. The illustrated trajectories show the energy associated to each one of the nodes.
-                     <b>(right, table) Quantitative evaluation of out-of-distribution detection</b>.  We evaluate the average energy associated to each node-type in a scene.
+                    <b>(Left, Figure) Out-Of-Distribution Detection with NIIP</b>. A model trained with certain relation types can detect when a trajectory exhibits a new type of relation. The illustrated trajectories show the energy associated to each one of the nodes.
+                     <b>(Right, Table) Quantitative evaluation of out-of-distribution detection</b>.  We evaluate the average energy associated to each node-type in a scene.
                 </p> <br>
             </figure>
             </center>
@@ -641,9 +639,9 @@ The figure below shows qualitatively how the energy is considerably higher for t
                             <img width="70%" src="materials/added_potentials.png">
                         </a>
                         <p class="caption">
-                            <b>(top, figure) With NIIP we can add and control test-time potentials to achieve a desired behavior for Prediction in the Charged Dataset</b>.
+                            <b>(Top, Figure) With NIIP we can add and control test-time potentials to achieve a desired behavior for Prediction in the Charged Dataset</b>.
                             We design test-time potentials to steer trajectories out of a prohibited area.
-                             <b>(bottom, table) Quantitative results.</b>.
+                             <b>(Bottom, Table) Quantitative results.</b>.
                             In row 1 of the table, we show the squared distance after applying a goal potential towards the center (0,0) of the scene with different strengths. In row 2, we report the percentage of time-steps that particles stay in a particular area A = [(0, −1), (1, 1)] after applying a potential that enforces avoiding A. The figure shows the effect of applying test-time potentials in the latter experiment.
                         </p> <br>
                     </figure>
