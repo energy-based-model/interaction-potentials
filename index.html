@@ -167,6 +167,10 @@ p {
 	text-align: left;
 }
 
+p {
+  margin: 5px 0; /* 10px spacing on top and bottom, 0px on left and right */
+}
+
 
 video {
     display: block;
@@ -458,7 +462,7 @@ pre {
 
         <div style="clear: both">
             <div class="paper-btn-parent">
-            <a class="paper-btn" href="https://arxiv.org/abs/2302.11552">
+            <a class="paper-btn" href="https://openreview.net/pdf?id=Iwt7oI9cNb">
                 <span class="material-icons"> description </span> 
                  Paper
             </a>
@@ -505,9 +509,7 @@ pre {
 
         <div class="flex-row">
             <p> 
-                <b>Neural Interaction Inference with Potentials</b>
-                </p>
-                <p>
+                <b>Neural Interaction Inference with Potentials.</b>
                 We present Neural Interaction Inference with Potentials (NIIP), our  unsupervised approach to decompose a trajectory  $ \mathbf{x}(1...T)_i  $, consisting of  $ N  $ separate nodes at each timestep,  into a set of separate EBM  $ E_\theta^j(\mathbf{x})  $ potentials.  NIIP is composed by two steps: <b>(i)</b> an encoder for obtaining a set of potentials and <b>(ii)</b> a sampling process which optimizes for a predicted trajectory, minimizing the inferred potentials. Energy functions in NIIP are trained using autoencoding.
                 </p>
                 <p>
@@ -543,10 +545,8 @@ pre {
                 </p>
                 <p>
                 where  $ m  $ is the  $ m_\text{th}  $ step and  $ \lambda  $ is the step size and  $ \omega^m \sim \mathcal{N}(0, \lambda)  $. We then compute MSE objective with  $ \tilde{\mathbf{x}}^M  $, which is the result of  $ M  $ sampling iterations and the ground truth trajectory  $ \mathbf{x}  $:
-                </p>
-                <p>
                 \[\mathcal{L}_{\text{MSE}}(\theta) = \| \tilde{\mathbf{x}}^M- \mathbf{x} \|^2.\]
-                We optimize both  $ \tilde{\mathbf{x}}  $ and the parameters  $ \theta  $ with automatic differentiation..
+                We optimize both  $ \tilde{\mathbf{x}}  $ and the parameters  $ \theta  $ with automatic differentiation.
                 </p>
 
         </div>
@@ -574,8 +574,8 @@ pre {
                     <img width="70%" src="materials/recombination.png">
                 </a>
                 <p class="caption">
-                    <br>NIIP can recombine encoded potentials at test-time learned from different datasets. </br> Illustrated, samples from Springs (Col. 1) and Charged (Col. 2) and their recombinations (Col. 3). NIIP encodes both trajectories. NIIP is able to reconstruct trajectories framed in green while swapping the edge potentials associated to the nodes in the green dashed box for the ones in the red dashed boxes. Recombinations look semantically plausible.
-                </p> <br>
+                    <b>NIIP can recombine encoded potentials at test-time learned from different datasets.</b> Illustrated, samples from Springs (Col. 1) and Charged (Col. 2) and their recombinations (Col. 3). NIIP encodes both trajectories. NIIP is able to reconstruct trajectories framed in green while swapping the edge potentials associated to the nodes in the green dashed box for the ones in the red dashed boxes. Recombinations look semantically plausible.
+                </p>
             </figure>
             </center>
 
@@ -603,9 +603,9 @@ The figure below shows qualitatively how the energy is considerably higher for t
                     <img width="100%" src="materials/ood.png">
                 </a>
                 <p class="caption">
-                    <b>(left, figure) Out-Of-Distribution Detection with NIIP</b>. A model trained with certain relation types can detect when a trajectory exhibits a new type of relation. The illustrated trajectories show the energy associated to each one of the nodes.
-                     <b>(right, table) Quantitative evaluation of out-of-distribution detection</b>.  We evaluate the average energy associated to each node-type in a scene.
-                </p> <br>
+                    <b>(Left, Figure) Out-Of-Distribution Detection with NIIP</b>. A model trained with certain relation types can detect when a trajectory exhibits a new type of relation. The illustrated trajectories show the energy associated to each one of the nodes.
+                     <b>(Right, Table) Quantitative evaluation of out-of-distribution detection</b>.  We evaluate the average energy associated to each node-type in a scene.
+                </p>
             </figure>
             </center>
 <!--            <center>-->
@@ -641,19 +641,19 @@ The figure below shows qualitatively how the energy is considerably higher for t
                             <img width="70%" src="materials/added_potentials.png">
                         </a>
                         <p class="caption">
-                            <b>(top, figure) With NIIP we can add and control test-time potentials to achieve a desired behavior for Prediction in the Charged Dataset</b>.
+                            <b>(Top, Figure) With NIIP we can add and control test-time potentials to achieve a desired behavior for Prediction in the Charged Dataset</b>.
                             We design test-time potentials to steer trajectories out of a prohibited area.
-                             <b>(bottom, table) Quantitative results.</b>.
+                             <b>(Bottom, Table) Quantitative results.</b>.
                             In row 1 of the table, we show the squared distance after applying a goal potential towards the center (0,0) of the scene with different strengths. In row 2, we report the percentage of time-steps that particles stay in a particular area A = [(0, −1), (1, 1)] after applying a potential that enforces avoiding A. The figure shows the effect of applying test-time potentials in the latter experiment.
-                        </p> <br>
+                        </p>
                     </figure>
                 </center>
                     <p>
-                    <b>Velocity Potentials</b> We incorporate the following velocity potential as an energy function:  $ E = \epsilon \lambda \sum_{i,t}\sqrt{(\mathbf{v}_{x,i}^t)^2 + (\mathbf{v}_{y,i}^t)^2} = \epsilon \lambda\sum_{i,t}mod(\mathbf{v}_{i}^t)  $, for particle  $ i  $ in time  $ t  $. The weight  $ \lambda =1e-2/{N}  $ scales the effect of this function over the rest and  $ \epsilon  $ is a multiplicative constant that indicates the strength and direction of the potential.
+                    <b>Velocity Potentials.</b> We incorporate the following velocity potential as an energy function:  $ E = \epsilon \lambda \sum_{i,t}\sqrt{(\mathbf{v}_{x,i}^t)^2 + (\mathbf{v}_{y,i}^t)^2}$, for particle  $ i  $ in time  $ t  $. The weight  $ \lambda =1e-2/{N}  $ scales the effect of this function over the rest and  $ \epsilon  $ is a multiplicative constant that indicates the strength and direction of the potential.
 <!--                Figure \ref{fig:new-constraints} (two top rows), we show (\textbf{i.})  $ \epsilon = 0  $: Reconstruction (top-left); (\textbf{ii.})  $ \epsilon = 4  $: Decrease of velocity (middle-left); (\textbf{iii.})  $ \epsilon = -5  $: Low increase of velocity (top-right); and (\textbf{iv.})  $ \epsilon = -10  $: High increase of velocity (middle-right)-->
                 </p>
                 <p>
-                    <b>Goal Potentials</b> We also add at test-time an attraction potential as a the squared distance of the predicted coordinates to the goal:  $ P = \epsilon\lambda \sum_{i,t}(\tilde{\mathbf{p}}^{0:T-1}_i - \mathbf{g})^2  $, where  $ \mathbf{g}  $ is defined as the coordinates of our goal point. We define the trajectory coordinates  $ \tilde{\mathbf{p}}^{t}_i  $ as an accumulation of the un-normalized velocities  $ \mathbf{v}^{t}_i  $ predicted by NIIP:  $ \tilde{\mathbf{p}}^{t+1}_i = \sum_{t}(\mathbf{v}^{0:t}_i) + \mathbf{p}^0_i  $ for particle  $ i  $ at time-step  $ t  $.  Here,  $ \mathbf{p}^1  $ is fixed initial ground-truth location of the particle at time 0 and  $ \lambda =5e-4/{N}  $.
+                    <b>Goal Potentials.</b> We also add at test-time an attraction potential as a the squared distance of the predicted coordinates to the goal:  $ P = \epsilon\lambda \sum_{i,t}(\tilde{\mathbf{p}}^{0:T-1}_i - \mathbf{g})^2  $, where  $ \mathbf{g}  $ is defined as the coordinates of our goal point. We define the trajectory coordinates  $ \tilde{\mathbf{p}}^{t}_i  $ as an accumulation of the un-normalized velocities  $ \mathbf{v}^{t}_i  $ predicted by NIIP:  $ \tilde{\mathbf{p}}^{t+1}_i = \sum_{t}(\mathbf{v}^{0:t}_i) + \mathbf{p}^0_i  $ for particle  $ i  $ at time-step  $ t  $.  Here,  $ \mathbf{p}^1  $ is fixed initial ground-truth location of the particle at time 0 and  $ \lambda =5e-4/{N}$.
                 </p>
 <!--                <center>-->
 <!--                    <figure>-->
@@ -671,8 +671,8 @@ The figure below shows qualitatively how the energy is considerably higher for t
                             <img width="90%" src="materials/added_potentials_nba.png">
                         </a>
                         <p class="caption">
-                            <b>NIIP is able to incorporate new potentials in test-time</b>. We can see depicted reconstructions of NBA samples with added potentials.
-                        </p> <br>
+                            <b>NIIP is able to incorporate new potentials in test-time</b>. We can see depicted reconstructions of NBA samples with added potentials. Trajectories are appropriately modified according to each added potential.
+                        </p> 
                     </figure>
                 </center>
             </div>
@@ -691,7 +691,7 @@ The figure below shows qualitatively how the energy is considerably higher for t
                     <img width="80%" src="materials/charts.png">
                 </a>
                 <p class="caption">
-                </p> <br>
+                </p>
             </figure>
             </center>
 <!--        <center>-->
